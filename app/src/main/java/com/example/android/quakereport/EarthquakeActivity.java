@@ -20,6 +20,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,11 +31,11 @@ import java.util.List;
 
 public class EarthquakeActivity extends AppCompatActivity {
 
-    private static final String USGS_REQUEST_URL =
-            "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time&minmag=6&limit=10";
-
     private static final String LOG_TAG = EarthquakeActivity.class.getName();
     private EarthquakeAdapter mAdapter;
+
+    private static final String USGS_REQUEST_URL =
+            "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time&minmag=5&limit=500";
 
 
     @Override
@@ -42,9 +43,9 @@ public class EarthquakeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
 
+
         EarthquakeAsyncTask task = new EarthquakeAsyncTask();
         task.execute(USGS_REQUEST_URL);
-
         // Create a fake list of earthquake locations.
 
 
@@ -81,18 +82,17 @@ public class EarthquakeActivity extends AppCompatActivity {
                 startActivity(websiteIntent);
             }
         });
-        // Create
+                // Create
     }
-
 
     /**
      * {@link AsyncTask} to perform the network request on a background thread, and then
      * update the UI with the list of earthquakes in the response.
-     * <p>
+     *
      * AsyncTask has three generic parameters: the input type, a type used for progress updates, and
      * an output type. Our task will take a String URL, and return an Earthquake. We won't do
      * progress updates, so the second generic is just Void.
-     * <p>
+     *
      * We'll only override two of the methods of AsyncTask: doInBackground() and onPostExecute().
      * The doInBackground() method runs on a background thread, so it can run long-running code
      * (like network activity), without interfering with the responsiveness of the app.
@@ -114,6 +114,8 @@ public class EarthquakeActivity extends AppCompatActivity {
             }
 
             List<Earthquake> result = QueryUtils.fetchEarthquakeData(urls[0]);
+
+
             return result;
         }
 
@@ -136,4 +138,5 @@ public class EarthquakeActivity extends AppCompatActivity {
             }
         }
     }
+
 }

@@ -36,6 +36,7 @@ class Earthquake {
         public long getTimeInMilliseconds() {
             return mTimeInMilliseconds;
              }
+
              public String getUrl(){ return mUrl; }
 
     }

@@ -26,7 +26,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake>{
         super(context ,0, earthquakes);
 
 
-    }
+    } 
     private static final String LOCATION_SEPARATOR = " of ";
 
 

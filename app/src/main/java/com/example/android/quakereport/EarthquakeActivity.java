@@ -169,6 +169,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
 
     @Override
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
+        View loadingIndicator = findViewById(R.id.loading_spinner);
+        loadingIndicator.setVisibility(View.GONE);
 
         mEmptyStateTextView.setText("EMPTY LIST");
 

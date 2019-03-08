@@ -14,8 +14,23 @@
      limitations under the License.
 -->
 <!-- Layout for a list of earthquakes -->
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<ListView
     android:id="@+id/list"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
+
+<TextView
+android:id="@+id/empty_view"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:gravity="center"
+android:visibility="gone"
+android:text="NO DATA AVAILABLE" />
+
+</RelativeLayout>

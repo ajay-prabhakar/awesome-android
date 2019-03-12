@@ -33,6 +33,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Loader;
@@ -50,6 +51,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
             "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time&minmag=5&limit=500";
 
     private TextView mEmptyStateTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,11 +65,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
         mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
 
 
-
         // Find a reference to the {@link ListView} in the layout
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
-
-
 
 
         // Create a new {@link ArrayAdapter} of earthquakes
@@ -124,7 +123,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
             // Update empty state with no connection error message
             mEmptyStateTextView.setText("NO INTERNET CONNECTION");
         }
-                // Create
+        // Create
 
 
     }
@@ -132,11 +131,11 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
     /**
      * {@link AsyncTask} to perform the network request on a background thread, and then
      * update the UI with the list of earthquakes in the response.
-     *
+     * <p>
      * AsyncTask has three generic parameters: the input type, a type used for progress updates, and
      * an output type. Our task will take a String URL, and return an Earthquake. We won't do
      * progress updates, so the second generic is just Void.
-     *
+     * <p>
      * We'll only override two of the methods of AsyncTask: doInBackground() and onPostExecute().
      * The doInBackground() method runs on a background thread, so it can run long-running code
      * (like network activity), without interfering with the responsiveness of the app.
@@ -212,6 +211,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
 
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);

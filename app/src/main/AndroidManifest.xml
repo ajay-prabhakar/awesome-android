@@ -11,7 +11,7 @@
      limitations under the License.
 -->
 <manifest package="com.example.android.pets"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"

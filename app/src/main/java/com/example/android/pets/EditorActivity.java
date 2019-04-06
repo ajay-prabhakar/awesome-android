@@ -36,6 +36,7 @@ public class EditorActivity extends AppCompatActivity {
     /** EditText field to enter the pet's name */
     private EditText mNameEditText;
 
+    
     /** EditText field to enter the pet's breed */
     private EditText mBreedEditText;
 

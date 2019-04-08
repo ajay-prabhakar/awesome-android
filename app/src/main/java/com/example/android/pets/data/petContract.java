@@ -7,6 +7,8 @@ public class petContract {
     private petContract() {}
 
     public static final class petEntry implements BaseColumns{
+        public final static String TABLE_NAME = "pets";
+
         public static final String _ID = BaseColumns._ID;
         public static final String COLUMN_PET_NAME = "name";
         public static final String COLUMN_PET_BREED = "breed";

@@ -16,6 +16,8 @@
  */
 package com.example.android.pets;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -27,26 +29,39 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.android.pets.data.petContract;
+import com.example.android.pets.data.petDbHelper;
 
 /**
  * Allows user to create a new pet or edit an existing one.
  */
 public class EditorActivity extends AppCompatActivity {
 
-    /** EditText field to enter the pet's name */
+    /**
+     * EditText field to enter the pet's name
+     */
     private EditText mNameEditText;
 
 
-    /** EditText field to enter the pet's breed */
+    /**
+     * EditText field to enter the pet's breed
+     */
     private EditText mBreedEditText;
 
-    /** EditText field to enter the pet's weight */
+    /**
+     * EditText field to enter the pet's weight
+     */
     private EditText mWeightEditText;
 
-    /** EditText field to enter the pet's gender */
+    /**
+     * EditText field to enter the pet's gender
+     */
     private Spinner mGenderSpinner;
+
+    private petDbHelper mPetDbhelper;
+
 
     /**
      * Gender of the pet. The possible values are:
@@ -92,9 +107,9 @@ public class EditorActivity extends AppCompatActivity {
                     if (selection.equals(getString(R.string.gender_male))) {
                         mGender = petContract.petEntry.GENDER_MALE;
                     } else if (selection.equals(getString(R.string.gender_female))) {
-                        mGender =  petContract.petEntry.GENDER_FEMALE; // Female
+                        mGender = petContract.petEntry.GENDER_FEMALE; // Female
                     } else {
-                        mGender =  petContract.petEntry.GENDER_UNKNOW; // Unknown
+                        mGender = petContract.petEntry.GENDER_UNKNOW; // Unknown
                     }
                 }
             }
@@ -105,6 +120,32 @@ public class EditorActivity extends AppCompatActivity {
                 mGender = 0; // Unknown
             }
         });
+    }
+
+    private void insetPet() {
+        String petName = mNameEditText.getText().toString().trim();
+        String petBreed = mBreedEditText.getText().toString().trim();
+        String Weight = (mWeightEditText.getText().toString().trim());
+        int petWeight = Integer.parseInt(Weight);
+
+        petDbHelper mPetDbhelper = new petDbHelper(this);
+
+        SQLiteDatabase db = mPetDbhelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(petContract.petEntry.COLUMN_PET_NAME, petName);
+        values.put(petContract.petEntry.COLUMN_PET_BREED, petBreed);
+        values.put(petContract.petEntry.COLUMN_PET_GENDER, mGender);
+        values.put(petContract.petEntry.COLUMN_PET_WEIGHT, petWeight);
+
+        long savedORnot = db.insert(petContract.petEntry.TABLE_NAME, null, values);
+
+        if (savedORnot == -1) {
+            Toast.makeText(this, "Cannot save the pet", Toast.LENGTH_LONG).show();
+
+        } else {
+            Toast.makeText(this, "Added pet to database", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -122,6 +163,8 @@ public class EditorActivity extends AppCompatActivity {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
                 // Do nothing for now
+                insetPet();
+                finish();
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:

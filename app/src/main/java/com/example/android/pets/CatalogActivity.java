@@ -37,6 +37,7 @@ public class CatalogActivity extends AppCompatActivity {
 
 
     private petDbHelper mPetDbhelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +53,13 @@ public class CatalogActivity extends AppCompatActivity {
             }
         });
 
-        mPetDbhelper=new petDbHelper(this);
+        mPetDbhelper = new petDbHelper(this);
+        displayDatabaseInfo();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         displayDatabaseInfo();
     }
 
@@ -81,7 +88,7 @@ public class CatalogActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void InsertPet(){
+    private void InsertPet() {
         SQLiteDatabase db = mPetDbhelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -90,7 +97,7 @@ public class CatalogActivity extends AppCompatActivity {
         values.put(petContract.petEntry.COLUMN_PET_GENDER, petContract.petEntry.GENDER_MALE);
         values.put(petContract.petEntry.COLUMN_PET_WEIGHT, 7);
 
-        db.insert(petContract.petEntry.TABLE_NAME,null,values);
+        db.insert(petContract.petEntry.TABLE_NAME, null, values);
 
     }
 

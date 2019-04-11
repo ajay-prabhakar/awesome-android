@@ -116,16 +116,48 @@ public class CatalogActivity extends AppCompatActivity {
 
         Cursor cursor =db.query(petContract.petEntry.TABLE_NAME,projection,null,null,
                 null,null,null);
+        TextView displayView = (TextView) findViewById(R.id.text_view_pet);
 
         try {
-            // Display the number of rows in the Cursor (which reflects the number of rows in the
-            // pets table in the database).
-            TextView displayView = (TextView) findViewById(R.id.text_view_pet);
-            displayView.setText("Number of rows in pets database table: " + cursor.getCount());
+            // Create a header in the Text View that looks like this:
+            //
+            // The pets table contains <number of rows in Cursor> pets.
+            // _id - name - breed - gender - weight
+            //
+            // In the while loop below, iterate through the rows of the cursor and display
+            // the information from each column in this order.
+            displayView.setText("The pets table contains " + cursor.getCount() + " pets.\n\n");
+            displayView.append(petContract.petEntry._ID + " - " +
+                    petContract.petEntry.COLUMN_PET_NAME + " "+petContract.petEntry.COLUMN_PET_BREED+petContract.petEntry.COLUMN_PET_GENDER+petContract.petEntry.COLUMN_PET_WEIGHT+"\n");
+
+            // Figure out the index of each column
+            int idColumnIndex = cursor.getColumnIndex(petContract.petEntry._ID);
+            int nameColumnIndex = cursor.getColumnIndex(petContract.petEntry.COLUMN_PET_NAME);
+            int BreedColumn=cursor.getColumnIndex(petContract.petEntry.COLUMN_PET_BREED);
+            int genderColumn =cursor.getColumnIndex(petContract.petEntry.COLUMN_PET_GENDER);
+            int weightColumn = cursor.getColumnIndex(petContract.petEntry.COLUMN_PET_WEIGHT);
+
+            // Iterate through all the returned rows in the cursor
+            while (cursor.moveToNext()) {
+                // Use that index to extract the String or Int value of the word
+                // at the current row the cursor is on.
+                int currentID = cursor.getInt(idColumnIndex);
+                String currentName = cursor.getString(nameColumnIndex);
+                String curremtBreed =cursor.getString(BreedColumn);
+                String curremtGender =cursor.getString(genderColumn);
+                String curremtWeight =cursor.getString(weightColumn);
+
+
+
+                // Display the values from each column of the current row in the cursor in the TextView
+                displayView.append(("\n" + currentID + " - " +
+                        currentName +" "+curremtBreed+" "+curremtGender+"  "+curremtWeight));
+            }
         } finally {
             // Always close the cursor when you're done reading from it. This releases all its
             // resources and makes it invalid.
             cursor.close();
         }
+
     }
 }

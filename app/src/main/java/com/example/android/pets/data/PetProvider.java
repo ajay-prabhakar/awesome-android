@@ -5,38 +5,70 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 
+import org.jetbrains.annotations.NotNull;
+
+/**
+ * {@link ContentProvider} for Pets app.
+ */
 public class PetProvider extends ContentProvider {
 
+
+
+    private petDbHelper mPetDbhelper;
+
+    /** Tag for the log messages */
+    public static final String LOG_TAG = PetProvider.class.getSimpleName();
+
+    /**
+     * Initialize the provider and the database helper object.
+     */
     @Override
     public boolean onCreate() {
-        return false;
+        // TODO: Create and initialize a PetDbHelper object to gain access to the pets database.
+        // Make sure the variable is a global variable, so it can be referenced from other
+        // ContentProvider methods.
+        petDbHelper mDbHelper = new petDbHelper(getContext());
+        return true;
     }
 
-    @androidx.annotation.Nullable
+    /**
+     * Perform the query for the given URI. Use the given projection, selection, selection arguments, and sort order.
+     */
     @Override
-    public Cursor query(@androidx.annotation.NonNull Uri uri, @androidx.annotation.Nullable String[] projection, @androidx.annotation.Nullable String selection, @androidx.annotation.Nullable String[] selectionArgs, @androidx.annotation.Nullable String sortOrder) {
+    public Cursor query(@NotNull Uri uri, String[] projection, String selection, String[] selectionArgs,
+                        String sortOrder) {
         return null;
     }
 
-    @androidx.annotation.Nullable
+    /**
+     * Insert new data into the provider with the given ContentValues.
+     */
     @Override
-    public String getType(@androidx.annotation.NonNull Uri uri) {
+    public Uri insert(@NotNull Uri uri, ContentValues contentValues) {
         return null;
     }
 
-    @androidx.annotation.Nullable
+    /**
+     * Updates the data at the given selection and selection arguments, with the new ContentValues.
+     */
     @Override
-    public Uri insert(@androidx.annotation.NonNull Uri uri, @androidx.annotation.Nullable ContentValues values) {
-        return null;
-    }
-
-    @Override
-    public int delete(@androidx.annotation.NonNull Uri uri, @androidx.annotation.Nullable String selection, @androidx.annotation.Nullable String[] selectionArgs) {
+    public int update(@NotNull Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
         return 0;
     }
 
+    /**
+     * Delete the data at the given selection and selection arguments.
+     */
     @Override
-    public int update(@androidx.annotation.NonNull Uri uri, @androidx.annotation.Nullable ContentValues values, @androidx.annotation.Nullable String selection, @androidx.annotation.Nullable String[] selectionArgs) {
+    public int delete(@NotNull Uri uri, String selection, String[] selectionArgs) {
         return 0;
+    }
+
+    /**
+     * Returns the MIME type of data for the content URI.
+     */
+    @Override
+    public String getType(@NotNull Uri uri) {
+        return null;
     }
 }

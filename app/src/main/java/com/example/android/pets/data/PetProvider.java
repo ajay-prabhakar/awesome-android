@@ -2,7 +2,9 @@ package com.example.android.pets.data;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.UriMatcher;
 import android.database.Cursor;
+import android.net.ProxyInfo;
 import android.net.Uri;
 
 import org.jetbrains.annotations.NotNull;
@@ -13,10 +15,28 @@ import org.jetbrains.annotations.NotNull;
 public class PetProvider extends ContentProvider {
 
 
+    private static final int PETS = 100;
+
+    private static final int PETS_ID = 101;
+
+    private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+
+    static {
+
+
+        uriMatcher.addURI(petContract.CONTENT_AUTHORITY, petContract.PATH_PETS, PETS);
+
+
+        uriMatcher.addURI(petContract.CONTENT_AUTHORITY, petContract.PATH_PETS + "/#", PETS_ID);
+
+
+    }
 
     private petDbHelper mPetDbhelper;
 
-    /** Tag for the log messages */
+    /**
+     * Tag for the log messages
+     */
     public static final String LOG_TAG = PetProvider.class.getSimpleName();
 
     /**

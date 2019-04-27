@@ -6,9 +6,9 @@ import android.provider.BaseColumns;
 public class petContract {
 
 
-    private static final String CONTENT_AUTHORITY = "com.example.android.pets";
-    private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
-    private static final String PATH_PETS = "pets";
+    public static final String CONTENT_AUTHORITY = "com.example.android.pets";
+    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
+    public static final String PATH_PETS = "pets";
     private petContract() {}
 
     public static final class petEntry implements BaseColumns{

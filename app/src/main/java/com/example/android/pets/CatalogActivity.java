@@ -112,10 +112,10 @@ public class CatalogActivity extends AppCompatActivity {
         // Perform this raw SQL query "SELECT * FROM pets"
         // to get a Cursor that contains all rows from the pets table.
         String[] projection = new String[]{petContract.petEntry._ID, petContract.petEntry.COLUMN_PET_BREED, petContract.petEntry.COLUMN_PET_GENDER,
-        petContract.petEntry.COLUMN_PET_NAME, petContract.petEntry.COLUMN_PET_WEIGHT};
+                petContract.petEntry.COLUMN_PET_NAME, petContract.petEntry.COLUMN_PET_WEIGHT};
 
-        Cursor cursor =db.query(petContract.petEntry.TABLE_NAME,projection,null,null,
-                null,null,null);
+        Cursor cursor = db.query(petContract.petEntry.TABLE_NAME, projection, null, null,
+                null, null, null);
         TextView displayView = (TextView) findViewById(R.id.text_view_pet);
 
         try {
@@ -128,13 +128,13 @@ public class CatalogActivity extends AppCompatActivity {
             // the information from each column in this order.
             displayView.setText("The pets table contains " + cursor.getCount() + " pets.\n\n");
             displayView.append(petContract.petEntry._ID + " - " +
-                    petContract.petEntry.COLUMN_PET_NAME + " "+petContract.petEntry.COLUMN_PET_BREED+petContract.petEntry.COLUMN_PET_GENDER+petContract.petEntry.COLUMN_PET_WEIGHT+"\n");
+                    petContract.petEntry.COLUMN_PET_NAME + " " + petContract.petEntry.COLUMN_PET_BREED + petContract.petEntry.COLUMN_PET_GENDER + petContract.petEntry.COLUMN_PET_WEIGHT + "\n");
 
             // Figure out the index of each column
             int idColumnIndex = cursor.getColumnIndex(petContract.petEntry._ID);
             int nameColumnIndex = cursor.getColumnIndex(petContract.petEntry.COLUMN_PET_NAME);
-            int BreedColumn=cursor.getColumnIndex(petContract.petEntry.COLUMN_PET_BREED);
-            int genderColumn =cursor.getColumnIndex(petContract.petEntry.COLUMN_PET_GENDER);
+            int BreedColumn = cursor.getColumnIndex(petContract.petEntry.COLUMN_PET_BREED);
+            int genderColumn = cursor.getColumnIndex(petContract.petEntry.COLUMN_PET_GENDER);
             int weightColumn = cursor.getColumnIndex(petContract.petEntry.COLUMN_PET_WEIGHT);
 
             // Iterate through all the returned rows in the cursor
@@ -143,15 +143,14 @@ public class CatalogActivity extends AppCompatActivity {
                 // at the current row the cursor is on.
                 int currentID = cursor.getInt(idColumnIndex);
                 String currentName = cursor.getString(nameColumnIndex);
-                String curremtBreed =cursor.getString(BreedColumn);
-                String curremtGender =cursor.getString(genderColumn);
-                String curremtWeight =cursor.getString(weightColumn);
-
+                String curremtBreed = cursor.getString(BreedColumn);
+                String curremtGender = cursor.getString(genderColumn);
+                String curremtWeight = cursor.getString(weightColumn);
 
 
                 // Display the values from each column of the current row in the cursor in the TextView
                 displayView.append(("\n" + currentID + " - " +
-                        currentName +" "+curremtBreed+" "+curremtGender+"  "+curremtWeight));
+                        currentName + " " + curremtBreed + " " + curremtGender + "  " + curremtWeight));
             }
         } finally {
             // Always close the cursor when you're done reading from it. This releases all its

@@ -28,17 +28,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fetchMovies(){
-        refreshLayout.isRefreshing = true
+        refreshLayout.setRefreshing(true)
 
         MoviesApi()
             .getMovies().enqueue(object : Callback<List<Movie>> {
             override fun onFailure(call: Call<List<Movie>>, t: Throwable) {
-                refreshLayout.isRefreshing = false
+                refreshLayout.setRefreshing(false)
                 Toast.makeText(applicationContext, t.message, Toast.LENGTH_LONG).show()
             }
 
             override fun onResponse(call: Call<List<Movie>>, response: Response<List<Movie>>) {
-                refreshLayout.isRefreshing = false
+                refreshLayout.setRefreshing(false)
                 val movies = response.body()
 
                 movies?.let {

@@ -17,7 +17,7 @@ data class Movie(
     val likePercent: Int,
     @SerializedName("vote_count")
     val voteCount: Int,
-    val title:String,
-    val language:String,
+    val title: String,
+    val language: String,
     val type: String
 )

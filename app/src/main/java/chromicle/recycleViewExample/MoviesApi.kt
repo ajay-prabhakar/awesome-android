@@ -16,10 +16,10 @@ const val BASE_URL = "https://api.simplifiedcoding.in/course-apis/recyclerview/"
 interface MoviesApi {
 
     @GET("movies")
-    fun getMovies() : Call<List<Movie>>
+    fun getMovies(): Call<List<Movie>>
 
     companion object {
-        operator fun invoke() : MoviesApi {
+        operator fun invoke(): MoviesApi {
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())

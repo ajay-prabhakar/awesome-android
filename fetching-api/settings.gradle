@@ -1,0 +1,6 @@
+<<<<<<< HEAD
+include ':TempleApp'
+=======
+include ':app'
+rootProject.name='fetchingapi'
+>>>>>>> api/master
